@@ -1,7 +1,7 @@
 # Личный проект «Большое путешествие» [![Build status][travis-image]][travis-url]
 
 * Студент: [Артем Рябков](https://up.htmlacademy.ru/ecmascript/10/user/72912).
-* Наставник: `Неизвестно`.
+* Наставник: `Кекс`.
 
 ---
 
