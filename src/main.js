@@ -13,13 +13,28 @@ import {tripData} from './mocks/trip-data';
 
 const eventsArray = [];
 const EVENTS_COUNTER = 2;
+const topMenu = [
+  {
+    val: `Table`,
+    isActive: true
+  },
+  {
+    val: `Stats`,
+    isActive: false
+  }
+];
+const FILTERS = [`Everything`, `Future`, `Past`];
+
 for(let i = 0; i < EVENTS_COUNTER; i++) {
   eventsArray.push(tripEvent(tripData()));
 }
 
+const FILTER_DATE = FILTERS.map((el) => {
+
+});
 
 render(`.trip-main__trip-info`, tripInfo(), `afterbegin`);
-render(`.trip-main__trip-controls`, menu(), `afterbegin`);
+render(`.trip-main__trip-controls`, menu(topMenu), `afterbegin`);
 render(`.trip-main__trip-controls`, filter());
 render(`.trip-events`, sort());
 render(`.trip-events`, editForm());
