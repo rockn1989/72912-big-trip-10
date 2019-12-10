@@ -24,21 +24,12 @@ export const tripData = () => ({
     `Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.`,
     `Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.`
   ].slice(0, Math.floor(Math.random() * 2)),
-  date: randomDate(new Date(2012, 0, 1), new Date()),
-  time: {
-    start: {
-      hours: getTime().hoursStart,
-      min: getTime().minutesStart
-    },
-    end: {
-      hours: getTime().hoursEnd,
-      min: getTime().minutesEnd
-    }
-  },
+  date: randomDate(new Date(2019, 0, 1), new Date()),
+  time: Date.now(),
   price: Math.floor(Math.random() * 500),
   offers: {
-      type: [`Add`, `Switch`, `Choose`],
-      val: [`luggage`, `to comfort class`, `meal`, `seats`],
-      price: `${Math.floor(Math.random() * 200)}`
-    }
+    type: [`Add`, `Switch`, `Choose`],
+    val: [`luggage`, `to comfort class`, `meal`, `seats`],
+    price: `${Math.floor(Math.random() * 200)}`
+  }
 });

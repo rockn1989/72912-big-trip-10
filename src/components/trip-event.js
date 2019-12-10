@@ -1,3 +1,6 @@
+import {getDurationTime} from './utils';
+
+
 export const tripEvent = (data) => {
   const {
     typeRoutes,
@@ -10,6 +13,18 @@ export const tripEvent = (data) => {
     offers
   } = data;
 
+  const timeStart = {
+    hours: new Date(time).getHours(),
+    min: new Date(time).getMinutes()
+  };
+
+  const timeEnd = {
+    hours: new Date(time + Math.floor(Math.random() * (5 * 60 * 60 * 1000))).getHours(),
+    min: new Date(time + Math.floor(Math.random() * (59 * 60 * 1000))).getMinutes()
+  };
+
+  const duration = getDurationTime(timeStart, timeEnd);
+
   return `<li class="trip-events__item">
           <div class="event">
             <div class="event__type">
@@ -19,11 +34,11 @@ export const tripEvent = (data) => {
 
             <div class="event__schedule">
               <p class="event__time">
-                <time class="event__start-time" datetime="${date.toLocaleString()}">${time.start.hours}:${time.start.min}</time>
+                <time class="event__start-time" datetime="${date}">${timeStart.hours + `:` + (timeStart.min > 10 ? timeStart.min : `0` + timeStart.min)}</time>
                 &mdash;
-                <time class="event__end-time" datetime="${date.toLocaleString()}">${time.end.hours}:${time.end.min}</time>
+                <time class="event__end-time" datetime="${date}">${timeEnd.hours + `:` + (timeEnd.min > 10 ? timeEnd.min : `0` + timeEnd.min)}</time>
               </p>
-              <p class="event__duration">1H 30M</p>
+              <p class="event__duration"> ${duration.hours + `H ` + duration.min + `M`}</p>
             </div>
 
             <p class="event__price">

@@ -25,13 +25,28 @@ const topMenu = [
 ];
 const FILTERS = [`Everything`, `Future`, `Past`];
 
-for(let i = 0; i < EVENTS_COUNTER; i++) {
-  eventsArray.push(tripEvent(tripData()));
+for (let i = 0; i < EVENTS_COUNTER; i++) {
+  eventsArray.push(tripData());
 }
 
-const FILTER_DATE = FILTERS.map((el) => {
-
+const FILTER_DATE = FILTERS.map((filterName) => {
+  let filteredVal;
+  switch (filterName) {
+    case `Future`: filteredVal = eventsArray.filter(({date}) => date.getTime() > Date.now());
+      break;
+    case `Past`: filteredVal = eventsArray.filter(({date}) => date.getTime() < Date.now());
+      break;
+    default:
+      filteredVal = eventsArray;
+      break;
+  }
+  return {
+    title: filterName,
+    arrray: filteredVal
+  };
 });
+
+console.log(FILTER_DATE)
 
 render(`.trip-main__trip-info`, tripInfo(), `afterbegin`);
 render(`.trip-main__trip-controls`, menu(topMenu), `afterbegin`);
@@ -44,6 +59,9 @@ new Array(3).fill(``).forEach(() => {
   render(`.trip-days`, trip());
 });
 
-[...document.querySelectorAll('.trip-events__list')].forEach((el) => {
-  el.insertAdjacentHTML(`beforeend`, eventsArray.join(``));
+
+[...document.querySelectorAll(`.trip-events__list`)].forEach((el) => {
+  eventsArray.map((dataEl) => {
+    el.insertAdjacentHTML(`beforeend`, tripEvent(dataEl));
+  });
 });
