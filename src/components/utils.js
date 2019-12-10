@@ -9,7 +9,9 @@ const getDurationTime = (timeStart, timeEnd) => {
   let min;
 
   if ((timeEnd.hours - timeStart.hours) >= 0) {
-    hours = (timeEnd.hours - timeStart.hours);
+    hours = timeEnd.hours - timeStart.hours;
+  } else {
+    hours = ONE_DAY_HOURS - Math.abs(timeEnd.hours - timeStart.hours);
   }
 
   if ((timeEnd.min - timeStart.min) >= 0) {

@@ -29,7 +29,7 @@ for (let i = 0; i < EVENTS_COUNTER; i++) {
   eventsArray.push(tripData());
 }
 
-const FILTER_DATE = FILTERS.map((filterName) => {
+const FILTER_DATA = FILTERS.map((filterName) => {
   let filteredVal;
   switch (filterName) {
     case `Future`: filteredVal = eventsArray.filter(({date}) => date.getTime() > Date.now());
@@ -42,15 +42,15 @@ const FILTER_DATE = FILTERS.map((filterName) => {
   }
   return {
     title: filterName,
-    arrray: filteredVal
+    array: filteredVal
   };
 });
 
-console.log(FILTER_DATE)
 
+console.log(FILTER_DATA);
 render(`.trip-main__trip-info`, tripInfo(), `afterbegin`);
 render(`.trip-main__trip-controls`, menu(topMenu), `afterbegin`);
-render(`.trip-main__trip-controls`, filter());
+render(`.trip-main__trip-controls`, filter(FILTER_DATA));
 render(`.trip-events`, sort());
 render(`.trip-events`, editForm());
 render(`.trip-events`, tripsList());
@@ -61,7 +61,7 @@ new Array(3).fill(``).forEach(() => {
 
 
 [...document.querySelectorAll(`.trip-events__list`)].forEach((el) => {
-  eventsArray.map((dataEl) => {
-    el.insertAdjacentHTML(`beforeend`, tripEvent(dataEl));
+  eventsArray.map((event) => {
+    el.insertAdjacentHTML(`beforeend`, tripEvent(event));
   });
 });
