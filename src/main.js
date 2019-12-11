@@ -12,7 +12,8 @@ import {tripEvent} from './components/trip-event';
 import {tripData} from './mocks/trip-data';
 
 const eventsArray = [];
-const EVENTS_COUNTER = 2;
+const EVENTS_COUNTER = 4;
+const DAYS_COUNTER = 3;
 const topMenu = [
   {
     val: `Table`,
@@ -46,8 +47,6 @@ const FILTER_DATA = FILTERS.map((filterName) => {
   };
 });
 
-
-console.log(FILTER_DATA);
 render(`.trip-main__trip-info`, tripInfo(), `afterbegin`);
 render(`.trip-main__trip-controls`, menu(topMenu), `afterbegin`);
 render(`.trip-main__trip-controls`, filter(FILTER_DATA));
@@ -55,8 +54,8 @@ render(`.trip-events`, sort());
 render(`.trip-events`, editForm());
 render(`.trip-events`, tripsList());
 
-new Array(3).fill(``).forEach(() => {
-  render(`.trip-days`, trip());
+new Array(DAYS_COUNTER).fill(``).forEach((el, i) => {
+  render(`.trip-days`, trip(eventsArray[i], i));
 });
 
 

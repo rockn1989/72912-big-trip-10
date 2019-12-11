@@ -25,7 +25,7 @@ export const tripData = () => ({
     `Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.`,
     `Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.`
   ].slice(0, Math.floor(Math.random() * 2)),
-  date: randomDate(new Date(2019, 0, 1), new Date()),
+  date: randomDate(),
   time: Date.now(),
   price: Math.floor(Math.random() * 500),
   offers: {

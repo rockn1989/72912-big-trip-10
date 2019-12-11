@@ -27,8 +27,17 @@ const getDurationTime = (timeStart, timeEnd) => {
   };
 };
 
-const randomDate = (start, end) => {
-  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+const randomDate = () => {
+  let factor = Boolean(Math.round(Math.random() * 1));
+  let date;
+  if (factor) {
+    date = Date.now() + Math.floor(Math.random() * 10) * 24 * 60 * 60 * 1000 * 1;
+  } else {
+    date = Date.now() + Math.floor(Math.random() * 10) * 24 * 60 * 60 * 1000 * (-1);
+  }
+  return new Date(date);
+  /* return new Date(start.getTime() + Math.random()*12 * (end.getTime() - start.getTime())); */
 };
+
 
 export {render, getDurationTime, randomDate};
