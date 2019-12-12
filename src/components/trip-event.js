@@ -5,8 +5,6 @@ export const tripEvent = (data) => {
   const {
     typeRoutes,
     cities,
-    images,
-    description,
     date,
     time,
     price,

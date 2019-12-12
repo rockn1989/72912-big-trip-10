@@ -36,7 +36,6 @@ const randomDate = () => {
     date = Date.now() + Math.floor(Math.random() * 10) * 24 * 60 * 60 * 1000 * (-1);
   }
   return new Date(date);
-  /* return new Date(start.getTime() + Math.random()*12 * (end.getTime() - start.getTime())); */
 };
 
 

@@ -14,6 +14,7 @@ import {tripData} from './mocks/trip-data';
 const eventsArray = [];
 const EVENTS_COUNTER = 4;
 const DAYS_COUNTER = 3;
+const FILTERS = [`Everything`, `Future`, `Past`];
 const topMenu = [
   {
     val: `Table`,
@@ -24,11 +25,20 @@ const topMenu = [
     isActive: false
   }
 ];
-const FILTERS = [`Everything`, `Future`, `Past`];
+
 
 for (let i = 0; i < EVENTS_COUNTER; i++) {
   eventsArray.push(tripData());
 }
+
+const daysDate = [...eventsArray];
+const ammount = eventsArray.reduce((prevVal, currentVal) => {
+  return currentVal.price + currentVal.price;
+}, 1);
+console.log(ammount);
+daysDate.sort((a, b) => {
+  return a.date.getTime() - b.date.getTime();
+});
 
 const FILTER_DATA = FILTERS.map((filterName) => {
   let filteredVal;
@@ -47,20 +57,24 @@ const FILTER_DATA = FILTERS.map((filterName) => {
   };
 });
 
-render(`.trip-main__trip-info`, tripInfo(), `afterbegin`);
+render(`.trip-main__trip-info`, tripInfo(daysDate), `afterbegin`);
 render(`.trip-main__trip-controls`, menu(topMenu), `afterbegin`);
 render(`.trip-main__trip-controls`, filter(FILTER_DATA));
 render(`.trip-events`, sort());
-render(`.trip-events`, editForm());
+
 render(`.trip-events`, tripsList());
 
 new Array(DAYS_COUNTER).fill(``).forEach((el, i) => {
-  render(`.trip-days`, trip(eventsArray[i], i));
+  render(`.trip-days`, trip(daysDate[i], i));
 });
 
 
-[...document.querySelectorAll(`.trip-events__list`)].forEach((el) => {
-  eventsArray.map((event) => {
-    el.insertAdjacentHTML(`beforeend`, tripEvent(event));
+[...document.querySelectorAll(`.trip-events__list`)].forEach((el, j) => {
+  eventsArray.map((event, i) => {
+    if(j === 0 && i === 0) {
+      el.insertAdjacentHTML(`beforeend`, editForm(event));
+    } else {
+      el.insertAdjacentHTML(`beforeend`, tripEvent(event));
+    }
   });
 });

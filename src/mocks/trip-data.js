@@ -18,13 +18,19 @@ export const tripData = () => ({
     `Amsterdam`,
     `New York`,
   ][Math.floor(Math.random() * 4)],
-  images: `http://picsum.photos/300/150?r=${Math.random()}`,
+  images: [
+    `http://picsum.photos/300/150?r=${Math.random()}`,
+    `http://picsum.photos/300/150?r=${Math.random()}`,
+    `http://picsum.photos/300/150?r=${Math.random()}`,
+    `http://picsum.photos/300/150?r=${Math.random()}`,
+    `http://picsum.photos/300/150?r=${Math.random()}`,
+  ],
   isFavorite: Boolean(Math.round(Math.random() * 1)),
   description: [
     `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra.`,
     `Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.`,
     `Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.`
-  ].slice(0, Math.floor(Math.random() * 2)),
+  ][Math.floor(Math.random() * 3)],
   date: randomDate(),
   time: Date.now(),
   price: Math.floor(Math.random() * 500),
