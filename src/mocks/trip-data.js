@@ -1,4 +1,4 @@
-import {getTime, randomDate} from '../components/utils';
+import {randomDate} from '../components/utils';
 
 export const tripData = () => ({
   typeRoutes: [
@@ -32,11 +32,39 @@ export const tripData = () => ({
     `Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.`
   ][Math.floor(Math.random() * 3)],
   date: randomDate(),
-  time: Date.now(),
+  time: {
+    timeStart: {
+      hours: new Date(Date.now()).getHours(),
+      min: new Date(Date.now()).getMinutes()
+    },
+    timeEnd: {
+      hours: new Date(Date.now() + Math.floor(Math.random() * (5 * 60 * 60 * 1000))).getHours(),
+      min: new Date(Date.now() + Math.floor(Math.random() * (59 * 60 * 1000))).getMinutes()
+    }
+  },
   price: Math.floor(Math.random() * 500),
-  offers: {
-    type: [`Add`, `Switch`, `Choose`],
-    val: [`luggage`, `to comfort class`, `meal`, `seats`],
-    price: `${Math.floor(Math.random() * 200)}`
-  }
+  offers: [{
+    type: `Add`,
+    val: `luggage`,
+    price: `${Math.floor(Math.random() * 10)}`,
+    isChecked: Boolean(Math.round(Math.random() * 1))
+  },
+  {
+    type: `Add`,
+    val: `meal`,
+    price: `${Math.floor(Math.random() * 20)}`,
+    isChecked: Boolean(Math.round(Math.random() * 1))
+  },
+  {
+    type: `Switch`,
+    val: `to comfort class`,
+    price: `${Math.floor(Math.random() * 200)}`,
+    isChecked: Boolean(Math.round(Math.random() * 1))
+  },
+  {
+    type: `Choose`,
+    val: `seats`,
+    price: `${Math.floor(Math.random() * 30)}`,
+    isChecked: Boolean(Math.round(Math.random() * 1))
+  }]
 });

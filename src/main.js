@@ -32,10 +32,13 @@ for (let i = 0; i < EVENTS_COUNTER; i++) {
 }
 
 const daysDate = [...eventsArray];
-const ammount = eventsArray.reduce((prevVal, currentVal) => {
-  return currentVal.price + currentVal.price;
-}, 1);
-console.log(ammount);
+
+let amount = 0;
+
+eventsArray.forEach((el) => {
+  amount += el.price;
+});
+
 daysDate.sort((a, b) => {
   return a.date.getTime() - b.date.getTime();
 });
@@ -68,10 +71,11 @@ new Array(DAYS_COUNTER).fill(``).forEach((el, i) => {
   render(`.trip-days`, trip(daysDate[i], i));
 });
 
+document.querySelector(`.trip-info__cost-value`).textContent = amount;
 
 [...document.querySelectorAll(`.trip-events__list`)].forEach((el, j) => {
   eventsArray.map((event, i) => {
-    if(j === 0 && i === 0) {
+    if (j === 0 && i === 0) {
       el.insertAdjacentHTML(`beforeend`, editForm(event));
     } else {
       el.insertAdjacentHTML(`beforeend`, tripEvent(event));
