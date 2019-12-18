@@ -38,5 +38,28 @@ const randomDate = () => {
   return new Date(date);
 };
 
+const RenderPosition = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`
+};
 
-export {render, getDurationTime, randomDate};
+const render2 = (container, element, place) => {
+  const containerHTML = document.querySelector(container);
+  switch (place) {
+    case RenderPosition.AFTERBEGIN:
+      containerHTML.prepend(element);
+      break;
+    case RenderPosition.BEFOREEND:
+      containerHTML.append(element);
+      break;
+  }
+};
+
+const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement.firstChild;
+};
+
+export {render, render2, getDurationTime, randomDate, createElement, RenderPosition};

@@ -1,12 +1,12 @@
-import {render} from './components/utils';
+import {render, render2, RenderPosition} from './components/utils';
 
-import {tripInfo} from './components/trip-info';
-import {menu} from './components/menu';
-import {filter} from './components/filter';
-import {sort} from './components/sort';
+import {TripInfo} from './components/trip-info';
+import {SiteMenu} from './components/menu';
+import {Filter} from './components/filter';
+import {Sort} from './components/sort';
 import {editForm} from './components/edit-form';
-import {tripsList} from './components/trips-list';
-import {trip} from './components/trip';
+import {TripList} from './components/trips-list';
+import {Trip} from './components/trip';
 import {tripEvent} from './components/trip-event';
 
 import {tripData} from './mocks/trip-data';
@@ -60,15 +60,15 @@ const FILTER_DATA = FILTERS.map((filterName) => {
   };
 });
 
-render(`.trip-main__trip-info`, tripInfo(daysDate), `afterbegin`);
-render(`.trip-main__trip-controls`, menu(topMenu), `afterbegin`);
-render(`.trip-main__trip-controls`, filter(FILTER_DATA));
-render(`.trip-events`, sort());
+render2(`.trip-main__trip-info`, new TripInfo(daysDate).getElement(), RenderPosition.AFTERBEGIN);
+render2(`.trip-main__trip-controls`, new SiteMenu(topMenu).getElement(), RenderPosition.AFTERBEGIN);
+render2(`.trip-main__trip-controls`, new Filter(FILTER_DATA).getElement(), RenderPosition.BEFOREEND);
+render2(`.trip-events`, new Sort().getElement(), RenderPosition.BEFOREEND);
 
-render(`.trip-events`, tripsList());
+render2(`.trip-events`, new TripList().getElement(), RenderPosition.BEFOREEND);
 
 new Array(DAYS_COUNTER).fill(``).forEach((el, i) => {
-  render(`.trip-days`, trip(daysDate[i], i));
+  render2(`.trip-days`, new Trip(daysDate[i], i).getElement(), RenderPosition.BEFOREEND);
 });
 
 document.querySelector(`.trip-info__cost-value`).textContent = amount;
