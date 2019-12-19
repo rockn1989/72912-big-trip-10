@@ -1,4 +1,4 @@
-const render = (container, component, position = `beforeend`) => {
+const render2 = (container, component, position = `beforeend`) => {
   document.querySelector(container).insertAdjacentHTML(position, component);
 };
 
@@ -43,7 +43,7 @@ const RenderPosition = {
   BEFOREEND: `beforeend`
 };
 
-const render2 = (container, element, place) => {
+const render = (container, element, place) => {
   const containerHTML = document.querySelector(container);
   switch (place) {
     case RenderPosition.AFTERBEGIN:

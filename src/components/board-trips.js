@@ -1,6 +1,6 @@
 import {createElement} from './utils';
 
-class TripList {
+class BoardTrips {
   constructor() {
     this._element = null;
   }
@@ -21,4 +21,4 @@ class TripList {
   }
 }
 
-export {TripList};
+export {BoardTrips};

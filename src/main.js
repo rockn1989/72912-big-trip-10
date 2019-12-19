@@ -1,18 +1,18 @@
-import {render, render2, RenderPosition} from './components/utils';
+import {render, RenderPosition} from './components/utils';
 
 import {TripInfo} from './components/trip-info';
 import {SiteMenu} from './components/menu';
 import {Filter} from './components/filter';
 import {Sort} from './components/sort';
-import {editForm} from './components/edit-form';
-import {TripList} from './components/trips-list';
+import {EditForm} from './components/edit-form';
+import {BoardTrips} from './components/board-trips';
 import {Trip} from './components/trip';
-import {tripEvent} from './components/trip-event';
+import {TripEvent} from './components/trip-event';
 
 import {tripData} from './mocks/trip-data';
 
-const eventsArray = [];
-const EVENTS_COUNTER = 4;
+const eventsArray = []; 
+const EVENTS_COUNTER = 3;
 const DAYS_COUNTER = 3;
 const FILTERS = [`Everything`, `Future`, `Past`];
 const topMenu = [
@@ -33,7 +33,7 @@ for (let i = 0; i < EVENTS_COUNTER; i++) {
 
 const daysDate = [...eventsArray];
 
-let amount = 0;
+let amount = 0; 
 
 eventsArray.forEach((el) => {
   amount += el.price;
@@ -60,25 +60,48 @@ const FILTER_DATA = FILTERS.map((filterName) => {
   };
 });
 
-render2(`.trip-main__trip-info`, new TripInfo(daysDate).getElement(), RenderPosition.AFTERBEGIN);
-render2(`.trip-main__trip-controls`, new SiteMenu(topMenu).getElement(), RenderPosition.AFTERBEGIN);
-render2(`.trip-main__trip-controls`, new Filter(FILTER_DATA).getElement(), RenderPosition.BEFOREEND);
-render2(`.trip-events`, new Sort().getElement(), RenderPosition.BEFOREEND);
+render(`.trip-main__trip-info`, new TripInfo(daysDate).getElement(), RenderPosition.AFTERBEGIN);
+render(`.trip-main__trip-controls`, new SiteMenu(topMenu).getElement(), RenderPosition.AFTERBEGIN);
+render(`.trip-main__trip-controls`, new Filter(FILTER_DATA).getElement(), RenderPosition.BEFOREEND);
+render(`.trip-events`, new Sort().getElement(), RenderPosition.BEFOREEND);
 
-render2(`.trip-events`, new TripList().getElement(), RenderPosition.BEFOREEND);
+render(`.trip-events`, new BoardTrips().getElement(), RenderPosition.BEFOREEND);
+
+const renderEvent = (eventData) => {
+  const eventComponent = new TripEvent(eventData);
+  const eventEditComponent = new EditForm(eventData);
+
+  const toggleButton = eventComponent.getElement(`.event__rollup-btn`);
+  const editForm = eventEditComponent.getElement(`form`);
+
+  const tripList = document.querySelector(`.trip-events__list`);
+
+  toggleButton.addEventListener(`click`, () => {
+    tripList.replaceChild(eventEditComponent.getElement(), eventComponent.getElement());
+  });
+
+  editForm.addEventListener(`submit`, () => {
+    tripList.replaceChild(eventComponent.getElement(), eventEditComponent.getElement());
+  });
+
+  render(`.trip-events__list`, eventComponent.getElement(), RenderPosition.BEFOREEND);
+};
 
 new Array(DAYS_COUNTER).fill(``).forEach((el, i) => {
-  render2(`.trip-days`, new Trip(daysDate[i], i).getElement(), RenderPosition.BEFOREEND);
+  if (i === 0) {
+    render(`.trip-days`, new Trip(daysDate[i], i).getElement(), RenderPosition.BEFOREEND);
+    eventsArray.map((event, j, arr) => {
+      if (j === 0) {
+        renderEvent(event);
+      }
+    });
+  }
 });
 
 document.querySelector(`.trip-info__cost-value`).textContent = amount;
 
-[...document.querySelectorAll(`.trip-events__list`)].forEach((el, j) => {
-  eventsArray.map((event, i) => {
-    if (j === 0 && i === 0) {
-      el.insertAdjacentHTML(`beforeend`, editForm(event));
-    } else {
-      el.insertAdjacentHTML(`beforeend`, tripEvent(event));
-    }
-  });
+const [...tripEventsList] = document.querySelectorAll(`.trip-events__list`);
+
+tripEventsList.forEach((el, j, arr) => {
+
 });
