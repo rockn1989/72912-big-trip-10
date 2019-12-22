@@ -62,4 +62,4 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
-export {render, render2, getDurationTime, randomDate, createElement, RenderPosition};
+export {render, getDurationTime, randomDate, createElement, RenderPosition};
