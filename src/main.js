@@ -11,7 +11,7 @@ import {TripEvent} from './components/trip-event';
 
 import {tripData} from './mocks/trip-data';
 
-const eventsArray = []; 
+const eventsArray = [];
 const EVENTS_COUNTER = 3;
 const DAYS_COUNTER = 3;
 const FILTERS = [`Everything`, `Future`, `Past`];
@@ -27,16 +27,16 @@ const topMenu = [
 ];
 
 
-for (let i = 0; i < EVENTS_COUNTER; i++) {
+for (let i = 0; i <= EVENTS_COUNTER; i++) {
   eventsArray.push(tripData());
 }
 
 const daysDate = [...eventsArray];
 
-let amount = 0; 
-
-eventsArray.forEach((el) => {
-  amount += el.price;
+const amount = eventsArray.map(({price}) => {
+  return price;
+}).reduce((prv, cr) => {
+  return prv + cr;
 });
 
 daysDate.sort((a, b) => {
@@ -90,18 +90,8 @@ const renderEvent = (eventData) => {
 new Array(DAYS_COUNTER).fill(``).forEach((el, i) => {
   if (i === 0) {
     render(`.trip-days`, new Trip(daysDate[i], i).getElement(), RenderPosition.BEFOREEND);
-    eventsArray.map((event, j, arr) => {
-      if (j === 0) {
-        renderEvent(event);
-      }
-    });
+    renderEvent(eventsArray[0]);
   }
 });
 
 document.querySelector(`.trip-info__cost-value`).textContent = amount;
-
-const [...tripEventsList] = document.querySelectorAll(`.trip-events__list`);
-
-tripEventsList.forEach((el, j, arr) => {
-
-});
