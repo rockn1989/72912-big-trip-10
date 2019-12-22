@@ -1,7 +1,3 @@
-const render2 = (container, component, position = `beforeend`) => {
-  document.querySelector(container).insertAdjacentHTML(position, component);
-};
-
 const getDurationTime = (timeStart, timeEnd) => {
   const ONE_HOUR = 60;
   const ONE_DAY_HOURS = 24;

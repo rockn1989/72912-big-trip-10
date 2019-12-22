@@ -69,7 +69,6 @@ render(`.trip-main__trip-controls`, new Filter(FILTER_DATA).getElement(), Render
 render(`.trip-events`, new BoardTrips().getElement(), RenderPosition.BEFOREEND);
 
 
-
 const renderEvent = (eventData) => {
   const eventComponent = new TripEvent(eventData);
   const eventEditComponent = new EditForm(eventData);
@@ -79,7 +78,7 @@ const renderEvent = (eventData) => {
 
   const tripList = document.querySelector(`.trip-events__list`);
   const closeForm = (event) => {
-    if (event.keyCode == 27) {
+    if (event.keyCode === 27) {
       tripList.replaceChild(eventComponent.getElement(), eventEditComponent.getElement());
       document.removeEventListener(`keydown`, closeForm);
     }
@@ -108,6 +107,9 @@ if (eventsArray.length <= 0) {
     }
   });
 
-  document.querySelector(`.trip-info__cost-value`).textContent = amount.length > 0 ? amount.reduce((prev, current) => { return prev + current; }) : 0;
+  document.querySelector(`.trip-info__cost-value`).textContent = amount.length > 0 ? amount.reduce((prev, current) =>{
+    return prev + current;
+  }) : 0;
 }
+
 
