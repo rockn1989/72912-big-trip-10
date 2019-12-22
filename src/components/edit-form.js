@@ -1,26 +1,40 @@
-export const editForm = (data) => {
-  const {
-    typeRoutes,
-    cities,
-    isFavorite,
-    images,
-    description,
-    date,
-    time,
-    price,
-    offers
-  } = data;
+import {createElement} from './utils';
 
-  const dayStart = date.toLocaleString(`ru`, {day: `numeric`});
-  const monthStart = date.toLocaleString(`ru`, {month: `numeric`});
-  const yearStart = date.toLocaleString(`ru`, {year: `numeric`});
+class EditForm {
+  constructor({typeRoutes, cities, isFavorite, images, description, date, time, price, offers}) {
+    this._typeRoutes = typeRoutes;
+    this._cities = cities;
+    this._isFavorite = isFavorite;
+    this._images = images;
+    this._description = description;
+    this._date = date;
+    this._time = time;
+    this._price = price;
+    this._offers = offers;
 
-  return `<form class="event  event--edit" action="#" method="post">
+    this._dayStart = this._date.toLocaleString(`ru`, {day: `numeric`});
+    this._monthStart = this._date.toLocaleString(`ru`, {month: `numeric`});
+    this._yearStart = this._date.toLocaleString(`ru`, {year: `numeric`});
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return `<form class="event  event--edit" action="#" method="post">
       <header class="event__header">
         <div class="event__type-wrapper">
           <label class="event__type  event__type-btn" for="event-type-toggle-1">
             <span class="visually-hidden">Choose event type</span>
-            <img class="event__type-icon" width="17" height="17" src="img/icons/${typeRoutes.toLowerCase()}.png" alt="Event type icon">
+            <img class="event__type-icon" width="17" height="17" src="img/icons/${this._typeRoutes.toLowerCase()}.png" alt="Event type icon">
           </label>
           <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 
@@ -87,9 +101,9 @@ export const editForm = (data) => {
 
         <div class="event__field-group  event__field-group--destination">
           <label class="event__label  event__type-output" for="event-destination-1">
-            ${typeRoutes}
+            ${this._typeRoutes}
           </label>
-          <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${cities}" list="destination-list-1">
+          <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${this._cities}" list="destination-list-1">
           <datalist id="destination-list-1">
             <option value="Amsterdam"></option>
             <option value="Geneva"></option>
@@ -101,28 +115,28 @@ export const editForm = (data) => {
           <label class="visually-hidden" for="event-start-time-1">
             From
           </label>
-          <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${dayStart +
-            `/` +
-            monthStart +
-            `/` +
-            yearStart +
-            `&nbsp;` +
-            time.timeStart.hours +
-            `:` +
-            time.timeStart.min}">
+          <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${this._dayStart +
+      `/` +
+    this._monthStart +
+      `/` +
+    this._yearStart +
+      `&nbsp;` +
+    this._time.timeStart.hours +
+      `:` +
+    this._time.timeStart.min}">
           &mdash;
           <label class="visually-hidden" for="event-end-time-1">
             To
           </label>
-          <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${dayStart +
-            `/` +
-            monthStart +
-            `/` +
-            yearStart +
-            `&nbsp;` +
-            time.timeEnd.hours +
-            `:` +
-            time.timeEnd.min}">
+          <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${this._dayStart +
+      `/` +
+      this._monthStart +
+      `/` +
+      this._yearStart +
+      `&nbsp;` +
+      this._time.timeEnd.hours +
+      `:` +
+      this._time.timeEnd.min}">
         </div>
 
         <div class="event__field-group  event__field-group--price">
@@ -130,13 +144,13 @@ export const editForm = (data) => {
             <span class="visually-hidden">Price</span>
             &euro;
           </label>
-          <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${price}">
+          <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${this._price}">
         </div>
 
         <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
         <button class="event__reset-btn" type="reset">Delete</button>
 
-        <input id="event-favorite-1" class="event__favorite-checkbox  visually-hidden" type="checkbox" name="event-favorite" ${isFavorite ? `checked` : ``}>
+        <input id="event-favorite-1" class="event__favorite-checkbox  visually-hidden" type="checkbox" name="event-favorite" ${this._isFavorite ? `checked` : ``}>
         <label class="event__favorite-btn" for="event-favorite-1">
           <span class="visually-hidden">Add to favorite</span>
           <svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
@@ -155,9 +169,9 @@ export const editForm = (data) => {
           <h3 class="event__section-title  event__section-title--offers">Offers</h3>
 
           <div class="event__available-offers">
-          ${offers
-            .map((offer) => {
-              return `<div class="event__offer-selector">
+          ${this._offers
+        .map((offer) => {
+          return `<div class="event__offer-selector">
               <input class="event__offer-checkbox  visually-hidden" id="event-offer-${offer.val}-1" type="checkbox" name="event-offer-${offer.val}" ${offer.isChecked ? `checked` : ``}>
               <label class="event__offer-label" for="event-offer-${offer.val}-1">
                 <span class="event__offer-title">Add ${offer.val}</span>
@@ -165,26 +179,29 @@ export const editForm = (data) => {
                 &euro;&nbsp;<span class="event__offer-price">${offer.price}</span>
               </label>
             </div>`;
-            })
-            .join(``)}
+        })
+        .join(``)}
           </div>
         </section>
 
         <section class="event__section  event__section--destination">
           <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-          <p class="event__destination-description">${description}</p>
+          <p class="event__destination-description">${this._description}</p>
 
           <div class="event__photos-container">
             <div class="event__photos-tape">
-          ${images
-            .map((imgSrc) => {
-              return `<img class="event__photo" src="${imgSrc}" alt="Event photo">`;
-            })
-            .join(``)}
+          ${this._images
+        .map((imgSrc) => {
+          return `<img class="event__photo" src="${imgSrc}" alt="Event photo">`;
+        })
+        .join(``)}
             </div>
           </div>
         </section>
       </section>
     </form>
   `;
-};
+  }
+}
+
+export {EditForm};
