@@ -1,7 +1,3 @@
-const render2 = (container, component, position = `beforeend`) => {
-  document.querySelector(container).insertAdjacentHTML(position, component);
-};
-
 const getDurationTime = (timeStart, timeEnd) => {
   const ONE_HOUR = 60;
   const ONE_DAY_HOURS = 24;
@@ -62,4 +58,4 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
-export {render, render2, getDurationTime, randomDate, createElement, RenderPosition};
+export {render, getDurationTime, randomDate, createElement, RenderPosition};
