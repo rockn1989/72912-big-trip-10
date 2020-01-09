@@ -1,7 +1,8 @@
-import {createElement} from './utils';
+import {AbstractComponent} from './abstract-component';
 
-class EditForm {
+class EditForm extends AbstractComponent {
   constructor({typeRoutes, cities, isFavorite, images, description, date, time, price, offers}) {
+    super();
     this._typeRoutes = typeRoutes;
     this._cities = cities;
     this._isFavorite = isFavorite;
@@ -15,17 +16,6 @@ class EditForm {
     this._dayStart = this._date.toLocaleString(`ru`, {day: `numeric`});
     this._monthStart = this._date.toLocaleString(`ru`, {month: `numeric`});
     this._yearStart = this._date.toLocaleString(`ru`, {year: `numeric`});
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 
   getTemplate() {
@@ -201,6 +191,10 @@ class EditForm {
       </section>
     </form>
   `;
+  }
+
+  setSubmitHandler(handler) {
+    this.getElement().addEventListener(`submit`, handler);
   }
 }
 

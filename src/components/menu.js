@@ -1,19 +1,9 @@
-import {createElement} from './utils';
+import {AbstractComponent} from './abstract-component';
 
-class SiteMenu {
+class SiteMenu extends AbstractComponent {
   constructor(links) {
+    super();
     this._links = links;
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
     this._element = null;
   }
 

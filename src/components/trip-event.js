@@ -1,7 +1,10 @@
-import {getDurationTime, createElement} from './utils';
+import {getDurationTime} from '../utils/common';
+import {AbstractComponent} from './abstract-component';
 
-class TripEvent {
-  constructor({typeRoutes, cities, time, price, offers}) {
+class TripEvent extends AbstractComponent {
+  constructor({typeRoutes, cities, date, time, price, offers}) {
+    super();
+    this._date = date;
     this._typeRoutes = typeRoutes;
     this._cities = cities;
     this._time = time;
@@ -10,17 +13,6 @@ class TripEvent {
 
     this._duration = getDurationTime(this._time.timeStart, this._time.timeEnd);
     this._checkedOffers = this._offers.filter(({isChecked}) => isChecked);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 
   getTemplate() {
@@ -61,6 +53,10 @@ class TripEvent {
       </button>
     </div>
   </li>`;
+  }
+
+  setEditButtonClickHandler(handler) {
+    this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, handler);
   }
 }
 
