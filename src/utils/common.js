@@ -1,3 +1,4 @@
+
 const getDurationTime = (timeStart, timeEnd) => {
   const ONE_HOUR = 60;
   const ONE_DAY_HOURS = 24;
@@ -34,28 +35,4 @@ const randomDate = () => {
   return new Date(date);
 };
 
-const RenderPosition = {
-  AFTERBEGIN: `afterbegin`,
-  BEFOREEND: `beforeend`
-};
-
-const render = (container, element, place) => {
-  const containerHTML = document.querySelector(container);
-  switch (place) {
-    case RenderPosition.AFTERBEGIN:
-      containerHTML.prepend(element);
-      break;
-    case RenderPosition.BEFOREEND:
-      containerHTML.append(element);
-      break;
-  }
-};
-
-const createElement = (template) => {
-  const newElement = document.createElement(`div`);
-  newElement.innerHTML = template;
-
-  return newElement.firstChild;
-};
-
-export {render, getDurationTime, randomDate, createElement, RenderPosition};
+export {getDurationTime, randomDate};

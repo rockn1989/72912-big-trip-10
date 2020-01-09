@@ -1,23 +1,13 @@
-import {createElement} from './utils';
+import {AbstractComponent} from './abstract-component';
 
-class TripInfo {
+class TripInfo extends AbstractComponent {
   constructor(cities) {
+    super();
     this._firstCity = cities[0].cities;
     this._secondCity = cities[cities.length - 1].cities;
     this._month = cities[0].date.toLocaleString(`ru`, {month: `long`});
     this._dayStart = cities[0].date.toLocaleString(`ru`, {day: `numeric`});
     this._dayEnd = cities[cities.length - 1].date.toLocaleString(`ru`, {day: `numeric`});
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
     this._element = null;
   }
 

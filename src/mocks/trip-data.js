@@ -1,4 +1,4 @@
-import {randomDate} from '../components/utils';
+import {randomDate} from '../utils/common';
 
 export const tripData = () => ({
   typeRoutes: [
