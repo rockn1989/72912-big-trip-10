@@ -1,8 +1,7 @@
-import {getDurationTime} from '../utils/common';
 import {AbstractComponent} from './abstract-component';
 
 class TripEvent extends AbstractComponent {
-  constructor({typeRoutes, cities, date, time, price, offers}) {
+  constructor({typeRoutes, cities, date, time, price, offers, duration}) {
     super();
     this._date = date;
     this._typeRoutes = typeRoutes;
@@ -11,7 +10,7 @@ class TripEvent extends AbstractComponent {
     this._price = price;
     this._offers = offers;
 
-    this._duration = getDurationTime(this._time.timeStart, this._time.timeEnd);
+    this._duration = duration;
     this._checkedOffers = this._offers.filter(({isChecked}) => isChecked);
   }
 
@@ -40,12 +39,11 @@ class TripEvent extends AbstractComponent {
       <ul class="event__selected-offers">
       ${this._checkedOffers.slice(0, Math.floor(Math.random() * 3)).map((offer) => {
     return `<li class="event__offer">
-          <span class="event__offer-title">${offer.type} ${offer.val}</span>
-          &plus;
-          &euro;&nbsp;<span class="event__offer-price">${offer.price}</span>
-        </li>`;
+              <span class="event__offer-title">${offer.type} ${offer.val}</span>
+              &plus;
+              &euro;&nbsp;<span class="event__offer-price">${offer.price}</span>
+            </li>`;
   }).join(``)}
-
       </ul>
 
       <button class="event__rollup-btn" type="button">

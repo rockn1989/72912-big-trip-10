@@ -1,5 +1,6 @@
 
-const getDurationTime = (timeStart, timeEnd) => {
+const getDurationTime = (time) => {
+  const {timeStart, timeEnd} = time;
   const ONE_HOUR = 60;
   const ONE_DAY_HOURS = 24;
   let hours;
@@ -20,7 +21,21 @@ const getDurationTime = (timeStart, timeEnd) => {
 
   return {
     hours,
-    min
+    min,
+    seconds: ((hours * 60) + min) * 60
+  };
+};
+
+const createTime = () => {
+  return {
+    timeStart: {
+      hours: new Date(Date.now()).getHours(),
+      min: new Date(Date.now()).getMinutes()
+    },
+    timeEnd: {
+      hours: new Date(Date.now() + Math.floor(Math.random() * (5 * 60 * 60 * 1000))).getHours(),
+      min: new Date(Date.now() + Math.floor(Math.random() * (59 * 60 * 1000))).getMinutes()
+    }
   };
 };
 
@@ -35,4 +50,10 @@ const randomDate = () => {
   return new Date(date);
 };
 
-export {getDurationTime, randomDate};
+const clearContainer = (container) => {
+  while (container.firstChild) {
+    container.firstChild.remove();
+  }
+};
+
+export {createTime, getDurationTime, randomDate, clearContainer};
