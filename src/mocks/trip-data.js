@@ -1,4 +1,4 @@
-import {randomDate} from '../utils/common';
+import {randomDate, createTime, getDurationTime} from '../utils/common';
 
 export const tripData = () => ({
   typeRoutes: [
@@ -32,16 +32,8 @@ export const tripData = () => ({
     `Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.`
   ][Math.floor(Math.random() * 3)],
   date: randomDate(),
-  time: {
-    timeStart: {
-      hours: new Date(Date.now()).getHours(),
-      min: new Date(Date.now()).getMinutes()
-    },
-    timeEnd: {
-      hours: new Date(Date.now() + Math.floor(Math.random() * (5 * 60 * 60 * 1000))).getHours(),
-      min: new Date(Date.now() + Math.floor(Math.random() * (59 * 60 * 1000))).getMinutes()
-    }
-  },
+  time: createTime(),
+  duration: getDurationTime(createTime()),
   price: Math.floor(Math.random() * 500),
   offers: [{
     type: `Add`,

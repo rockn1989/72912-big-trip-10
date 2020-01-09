@@ -1,11 +1,8 @@
 import {render, RenderPosition} from './utils/render';
-
 import {TripInfo} from './components/trip-info';
 import {SiteMenu} from './components/menu';
 import {Filter} from './components/filter';
-import {Sort} from './components/sort';
 import {BoardTrips} from './components/board-trips';
-
 import {tripData} from './mocks/trip-data';
 import {TripController} from './controllers/trip-controller';
 
@@ -53,7 +50,6 @@ const FILTER_DATA = FILTERS.map((filterName) => {
 
 if (eventsArray.length > 0) {
   render(document.querySelector(`.trip-main__trip-info`), new TripInfo(sortedDays), RenderPosition.AFTERBEGIN);
-  render(document.querySelector(`.trip-events`), new Sort(), RenderPosition.BEFOREEND);
 }
 
 render(document.querySelector(`.trip-main__trip-controls`), new SiteMenu(topMenu), RenderPosition.AFTERBEGIN);
