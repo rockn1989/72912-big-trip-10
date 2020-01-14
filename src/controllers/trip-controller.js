@@ -1,4 +1,4 @@
-import {clearContainer} from '../utils/common';
+import {clearContainer, replaceElements} from '../utils/common';
 import {EditForm} from '../components/edit-form';
 import {Trip} from '../components/trip';
 import {TripEvent} from '../components/trip-event';
@@ -46,10 +46,6 @@ class TripController {
     const tripEvent = new TripEvent(tripMock);
     const editFormTrip = new EditForm(tripMock);
     const tripList = tripDay.getElement().querySelector(`.trip-events__list`);
-
-    const replaceElements = (container, newElement, oldElement) => {
-      container.replaceChild(newElement, oldElement);
-    };
 
     const hiddenForm = (event) => {
       if (event.keyCode === 27) {

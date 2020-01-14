@@ -50,10 +50,14 @@ const randomDate = () => {
   return new Date(date);
 };
 
+const replaceElements = (container, newElement, oldElement) => {
+  container.replaceChild(newElement, oldElement);
+};
+
 const clearContainer = (container) => {
   while (container.firstChild) {
     container.firstChild.remove();
   }
 };
 
-export {createTime, getDurationTime, randomDate, clearContainer};
+export {createTime, getDurationTime, randomDate, replaceElements, clearContainer};
