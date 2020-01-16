@@ -6,36 +6,49 @@ class PointController {
   constructor(container, tripData, onDataChange, onChangeView) {
     this._container = container;
     this._tripData = tripData;
-    this._trip = new TripEvent(this._tripData);
+
 
     this._onDataChange = onDataChange;
     this._onChangeView = onChangeView;
   }
 
   render() {
+    const tripData = this._tripData;
+    const tripEvent = new TripEvent(this._tripData);
     const editFormTrip = new EditForm(this._tripData);
-    const tripList = tripDay.getElement().querySelector(`.trip-events__list`);
 
     const hiddenForm = (event) => {
       if (event.keyCode === 27) {
-        replaceElements(tripList, tripEvent.getElement(), editFormTrip.getElement());
+        replaceElements(this._container, tripEvent.getElement(), editFormTrip.getElement());
         document.removeEventListener(`keydown`, hiddenForm);
       }
     };
 
     tripEvent.setEditButtonClickHandler(() => {
-      replaceElements(tripList, editFormTrip.getElement(), tripEvent.getElement());
+      replaceElements(this._container, editFormTrip.getElement(), tripEvent.getElement());
       document.addEventListener(`keydown`, hiddenForm);
     });
 
     editFormTrip.setSubmitHandler(() => {
-      replaceElements(tripList, tripEvent.getElement(), editFormTrip.getElement());
+      replaceElements(this._container, tripEvent.getElement(), editFormTrip.getElement());
       document.removeEventListener(`keydown`, hiddenForm);
     });
 
-    this._container.append(tripDay.getElement());
-    tripList.append(tripEvent.getElement());
+    editFormTrip.setToggleFavorite(() => {
+      const newTripData = Object.assign({}, tripData);
+      if (newTripData.isFavorite) {
+        newTripData.isFavorite = false;
+      } else {
+        newTripData.isFavorite = true;
+      }
+
+      this._onDataChange(tripEvent, newTripData);
+    });
+
+    this._container.append(tripEvent.getElement());
 
   }
 
 }
+
+export {PointController};

@@ -5,6 +5,8 @@ import {TripEvent} from '../components/trip-event';
 import {Empty} from '../components/no-trip-events';
 import {Sort} from '../components/sort';
 
+import {PointController} from '../controllers/point-controller';
+
 class TripController {
   constructor(container, tripData) {
     this._container = container;
@@ -12,6 +14,10 @@ class TripController {
     this._noEvents = new Empty();
 
     this._sort = new Sort();
+  }
+
+  _onDataChange(oldVal, newVal) {
+    //console.log(oldVal, newVal);
   }
 
   _renderSort() {
@@ -43,9 +49,13 @@ class TripController {
 
   _createTrip(tripMock, i) {
     const tripDay = new Trip(tripMock, i);
+    const tripList = tripDay.getElement().querySelector(`.trip-events__list`);
+    const pointController = new PointController(tripList, tripMock, this._onDataChange);
+    console.log();
+    /*
     const tripEvent = new TripEvent(tripMock);
     const editFormTrip = new EditForm(tripMock);
-    const tripList = tripDay.getElement().querySelector(`.trip-events__list`);
+
 
     const hiddenForm = (event) => {
       if (event.keyCode === 27) {
@@ -64,8 +74,10 @@ class TripController {
       document.removeEventListener(`keydown`, hiddenForm);
     });
 
-    this._container.append(tripDay.getElement());
     tripList.append(tripEvent.getElement());
+    */
+    this._container.append(tripDay.getElement());
+    pointController.render();
 
   }
 

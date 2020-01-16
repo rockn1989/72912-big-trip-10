@@ -196,6 +196,10 @@ class EditForm extends AbstractComponent {
   setSubmitHandler(handler) {
     this.getElement().addEventListener(`submit`, handler);
   }
+
+  setToggleFavorite(handler) {
+    this.getElement().querySelector(`.event__favorite-btn`).addEventListener(`click`, handler);
+  }
 }
 
 export {EditForm};
