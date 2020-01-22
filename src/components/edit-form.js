@@ -1,6 +1,6 @@
-import {AbstractComponent} from './abstract-component';
+import {AbstractSmartComponent} from './abstract-smart-component';
 
-class EditForm extends AbstractComponent {
+class EditForm extends AbstractSmartComponent {
   constructor({typeRoutes, cities, isFavorite, images, description, date, time, price, offers}) {
     super();
     this._typeRoutes = typeRoutes;
@@ -16,6 +16,7 @@ class EditForm extends AbstractComponent {
     this._dayStart = this._date.toLocaleString(`ru`, {day: `numeric`});
     this._monthStart = this._date.toLocaleString(`ru`, {month: `numeric`});
     this._yearStart = this._date.toLocaleString(`ru`, {year: `numeric`});
+    this._subscribeEvents();
   }
 
   getTemplate() {
@@ -200,6 +201,32 @@ class EditForm extends AbstractComponent {
   setToggleFavorite(handler) {
     this.getElement().querySelector(`.event__favorite-btn`).addEventListener(`click`, handler);
   }
+
+  _subscribeEvents() {
+    const element = this.getElement();
+    const typeEventsWrapper = element.querySelector(`.event__type-list`);
+    const typeCheckedEvent = element.querySelector(`.event__type`);
+    const typeCheckedEventLabel = element.querySelector(`.event__label`);
+    typeEventsWrapper.addEventListener(`click`, (evt) => {
+      if (evt.target.tagName === `INPUT`){
+        this._typeRoutes = evt.target.value;
+        this.rerender();
+        //typeCheckedEvent.querySelector(`img`).setAttribute(`src`, `img/icons/${typeRoutes}.png`)
+        //typeCheckedEventLabel.textContent = typeRoutes;
+      }
+      this.recoveryListeners();
+
+    });
+  }
+  
+  rerender () {
+    super.rerender();
+    this.recoveryListeners();
+  }
+  recoveryListeners () {
+    this._subscribeEvents();
+  }
+
 }
 
 export {EditForm};

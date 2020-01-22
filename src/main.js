@@ -22,7 +22,7 @@ const topMenu = [
 
 
 for (let i = 0; i < EVENTS_COUNTER; i++) {
-  eventsArray.push(tripData());
+  eventsArray.push(tripData(i));
 }
 
 const sortedDays = [...eventsArray];

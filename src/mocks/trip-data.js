@@ -1,6 +1,7 @@
 import {randomDate, createTime, getDurationTime} from '../utils/common';
 
-export const tripData = () => ({
+export const tripData = (id) => ({
+  id,
   typeRoutes: [
     `Taxi`,
     `Bus`,

@@ -43,6 +43,7 @@ class PointController {
       }
 
       this._onDataChange(tripEvent, newTripData);
+      editFormTrip.rerender();
     });
 
     this._container.append(tripEvent.getElement());

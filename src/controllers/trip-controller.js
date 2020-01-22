@@ -12,12 +12,24 @@ class TripController {
     this._container = container;
     this._tripData = tripData;
     this._noEvents = new Empty();
-
     this._sort = new Sort();
+    this._onDataChange = this._onDataChange.bind(this);
+    console.log(this._tripData);
   }
 
-  _onDataChange(oldVal, newVal) {
-    //console.log(oldVal, newVal);
+  _onDataChange(oldTrip, newData) {
+    //console.log(this._tripData);
+/*     const newAr = this._tripData.sort((a, b) => {
+      return a.id - b.id;
+    });
+
+    console.log(newAr, newData.id); */
+    this._tripData[this._tripData.findIndex((idx) => idx.id === newData.id)] = newData;
+    console.log(this._tripData, newData.id);
+    clearContainer(this._container);
+    const sortedTrips = this._sortEvents(this._tripData);
+    this._renderTrip(sortedTrips);
+
   }
 
   _renderSort() {
@@ -25,14 +37,14 @@ class TripController {
     sortContainer.prepend(this._sort.getElement());
 
     this._sort.setChangeHandler((type) => {
-      const newArray = this._sortEvents(type);
+      const newArray = this._sortEvents(this._tripData, type);
       clearContainer(this._container);
       this._renderTrip(newArray);
     });
   }
 
-  _sortEvents(type) {
-    const sortedDays = [...this._tripData];
+  _sortEvents(data, type) {
+    const sortedDays = [...data];
     let sortedArray;
     switch (type) {
       case `time`: sortedArray = sortedDays.sort((a, b) => b.duration.seconds - a.duration.seconds);
@@ -51,34 +63,9 @@ class TripController {
     const tripDay = new Trip(tripMock, i);
     const tripList = tripDay.getElement().querySelector(`.trip-events__list`);
     const pointController = new PointController(tripList, tripMock, this._onDataChange);
-    console.log();
-    /*
-    const tripEvent = new TripEvent(tripMock);
-    const editFormTrip = new EditForm(tripMock);
 
-
-    const hiddenForm = (event) => {
-      if (event.keyCode === 27) {
-        replaceElements(tripList, tripEvent.getElement(), editFormTrip.getElement());
-        document.removeEventListener(`keydown`, hiddenForm);
-      }
-    };
-
-    tripEvent.setEditButtonClickHandler(() => {
-      replaceElements(tripList, editFormTrip.getElement(), tripEvent.getElement());
-      document.addEventListener(`keydown`, hiddenForm);
-    });
-
-    editFormTrip.setSubmitHandler(() => {
-      replaceElements(tripList, tripEvent.getElement(), editFormTrip.getElement());
-      document.removeEventListener(`keydown`, hiddenForm);
-    });
-
-    tripList.append(tripEvent.getElement());
-    */
     this._container.append(tripDay.getElement());
     pointController.render();
-
   }
 
   _renderTrip(tripsData) {
@@ -104,7 +91,7 @@ class TripController {
     if (this._tripData.length <= 0) {
       document.querySelector(`.trip-events`).append(this._noEvents.getElement());
     } else {
-      const sortedTrips = this._sortEvents();
+      const sortedTrips = this._sortEvents(this._tripData);
       this._renderSort();
       this._renderTrip(sortedTrips);
     }
